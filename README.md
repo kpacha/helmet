@@ -37,7 +37,21 @@ Init your project
 
     bin/helmet --init
     
-and a features folder will be created in your root folder. Check out the collection of examples at the _features_ folder.
+and a folder called 'features' will be created in your root path. Check out the collection of examples at the _features/_ directory.
+
+Place your attack files into the _features/_ folder and a _FeatureContext.php_ in _features/bootstrap/_. Your _FeatureContext.php_ file should look like this:
+
+    <?php
+
+    use Kpacha\Helmet\HelmetContext;
+
+    /**
+     * Features context.
+     */
+    class FeatureContext extends HelmetContext
+    {
+
+    }
 
 Let's run your attacks! type 
 
