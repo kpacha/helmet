@@ -2,4 +2,4 @@
 /bin/behat
 /vendor
 phpunit.xml
-
+/build

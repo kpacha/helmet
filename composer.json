@@ -18,7 +18,10 @@
         "phpunit/phpunit": "~3.7.24"
     },
     "autoload": {
-        "psr-0": { "Kpacha\\Helmet": "src" }
+        "psr-0": { 
+            "Kpacha\\Helmet": "src",
+            "Kpacha\\Tests\\Helmet\\": "tests"
+        }
     },
     "bin": ["bin/helmet"],
     "config": {

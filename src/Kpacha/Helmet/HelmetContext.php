@@ -5,10 +5,8 @@ namespace Kpacha\Helmet;
 use Behat\Behat\Context\ClosuredContextInterface;
 use Behat\Behat\Context\TranslatedContextInterface;
 use Behat\Behat\Context\BehatContext;
-use Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
-use Kpacha\Helmet\Plugin\Plugin;
 
 /**
  * Description of Helmet
@@ -19,10 +17,14 @@ class HelmetContext extends BehatContext
 {
 
     /**
-     *
      * @var Kpacha\Helmet\Plugin\Plugin
      */
     private $plugin;
+
+    /**
+     * @var Kpacha\Helmet\PluginGuesser
+     */
+    private $pluginGuesser;
 
     /**
      * Initializes context.
@@ -40,11 +42,7 @@ class HelmetContext extends BehatContext
      */
     public function isInstalled($arg1)
     {
-        $pluginClassName = 'Kpacha\Helmet\Plugin\\' . ucfirst($arg1);
-        $this->plugin = new $pluginClassName;
-        if (!$this->plugin->isInstalled()) {
-            throw new Exception("The extension [$arg1] is not installed");
-        }
+        return $this->checkPluginIsInstalled($arg1);
     }
 
     /**
@@ -52,10 +50,22 @@ class HelmetContext extends BehatContext
      */
     public function theCommandLineBinaryIsInstalled($arg1)
     {
-        $this->plugin = new Plugin($arg1);
+        return $this->checkPluginIsInstalled('plugin', $arg1);
+    }
+
+    protected function checkPluginIsInstalled($pluginName, $argument = null)
+    {
+        $this->plugin = $this->getPlugin($pluginName, $argument);
         if (!$this->plugin->isInstalled()) {
-            throw new Exception("The command line binary [$arg1] is not installed");
+            throw new \Exception("[$pluginName - $argument] is not installed");
         }
+        return true;
+    }
+
+    protected function getPlugin($pluginName, $argument)
+    {
+        $pluginGuesser = new PluginGuesser;
+        return $pluginGuesser->getPlugin($pluginName, $argument);
     }
 
     /**
@@ -121,7 +131,7 @@ class HelmetContext extends BehatContext
             );
         }
     }
-    
+
     private function matchRegex(PyStringNode $string)
     {
         $pattern = '@' . trim($string->getRaw(), '/') . '@';
