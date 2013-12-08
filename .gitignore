@@ -1,5 +1,7 @@
 /bin/phpunit
 /bin/behat
+/bin/coveralls
+/bin/phpcs
 /vendor
 phpunit.xml
 /build

@@ -12,4 +12,5 @@ script:
     - bin/phpunit -c phpunit.xml.dist
 
 after_script:
+    - bin/phpcs -v --report=summary --standard=PSR1,PSR2 src/ tests/
     - php bin/coveralls -v
