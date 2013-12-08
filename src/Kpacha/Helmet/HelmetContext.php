@@ -91,7 +91,7 @@ class HelmetContext extends BehatContext
     {
         if (!$this->matchRegex($string)) {
             throw new \Exception(
-                    "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd does not contain : " . $string->getRaw()
+                "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd does not contain : " . $string->getRaw()
             );
         }
     }
@@ -103,7 +103,7 @@ class HelmetContext extends BehatContext
     {
         if ($string->getRaw() !== $this->plugin->getOutput()) {
             throw new \Exception(
-                    "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd is not : " . $string->getRaw()
+                "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd is not : " . $string->getRaw()
             );
         }
     }
@@ -115,7 +115,7 @@ class HelmetContext extends BehatContext
     {
         if ($this->matchRegex($string)) {
             throw new \Exception(
-                    "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd contains : " . $string->getRaw()
+                "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd contains : " . $string->getRaw()
             );
         }
     }
@@ -127,7 +127,7 @@ class HelmetContext extends BehatContext
     {
         if (strpos($this->plugin->getOutput(), $arg1) === false) {
             throw new \Exception(
-                    "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd does not contain : " . $arg1
+                "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd does not contain : " . $arg1
             );
         }
     }
@@ -137,5 +137,4 @@ class HelmetContext extends BehatContext
         $pattern = '@' . trim($string->getRaw(), '/') . '@';
         return preg_match($pattern, $this->plugin->getOutput());
     }
-
 }

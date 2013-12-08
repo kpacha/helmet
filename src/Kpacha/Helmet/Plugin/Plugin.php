@@ -90,5 +90,4 @@ class Plugin
         }
         return $value;
     }
-
 }

@@ -16,10 +16,9 @@ class PluginGuesser
         if (!class_exists($pluginClassName)) {
             throw new \Exception("The plugin [$pluginClassName] is not installed");
         }
-        if($args === null) {
+        if ($args === null) {
             $args = $pluginName;
         }
         return new $pluginClassName($args);
     }
-
 }
