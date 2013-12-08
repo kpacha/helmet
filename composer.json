@@ -20,6 +20,7 @@
     "autoload": {
         "psr-0": { "Kpacha\\Helmet": "src" }
     },
+    "bin": ["bin/helmet"],
     "config": {
         "bin-dir": "bin/"
     }
