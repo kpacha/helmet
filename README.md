@@ -58,3 +58,7 @@ Let's run your attacks! type
     bin/helmet
 
 and you'll get a nice report...
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/kpacha/helmet/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
