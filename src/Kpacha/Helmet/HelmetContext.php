@@ -19,12 +19,7 @@ class HelmetContext extends BehatContext
     /**
      * @var Kpacha\Helmet\Plugin\Plugin
      */
-    private $plugin;
-
-    /**
-     * @var Kpacha\Helmet\PluginGuesser
-     */
-    private $pluginGuesser;
+    protected $plugin;
 
     /**
      * Initializes context.
@@ -55,17 +50,19 @@ class HelmetContext extends BehatContext
 
     protected function checkPluginIsInstalled($pluginName, $argument = null)
     {
-        $this->plugin = $this->getPlugin($pluginName, $argument);
-        if (!$this->plugin->isInstalled()) {
+        if (!$this->getPlugin($pluginName, $argument)->isInstalled()) {
             throw new \Exception("[$pluginName - $argument] is not installed");
         }
         return true;
     }
 
-    protected function getPlugin($pluginName, $argument)
+    protected function getPlugin($pluginName = null, $argument = null)
     {
-        $pluginGuesser = new PluginGuesser;
-        return $pluginGuesser->getPlugin($pluginName, $argument);
+        if ($this->plugin === null) {
+            $pluginGuesser = new PluginGuesser;
+            $this->plugin = $pluginGuesser->getPlugin($pluginName, $argument);
+        }
+        return $this->plugin;
     }
 
     /**
@@ -73,7 +70,7 @@ class HelmetContext extends BehatContext
      */
     public function theFollowingProfile(TableNode $table)
     {
-        $this->plugin->addProfiles($table);
+        $this->getPlugin()->addProfiles($table);
     }
 
     /**
@@ -81,7 +78,7 @@ class HelmetContext extends BehatContext
      */
     public function iLaunchAAttackWith($attackType, PyStringNode $string)
     {
-        $this->plugin->launchAttackWith($attackType, $string);
+        $this->getPlugin()->launchAttackWith($attackType, $string);
     }
 
     /**
@@ -91,7 +88,7 @@ class HelmetContext extends BehatContext
     {
         if (!$this->matchRegex($string)) {
             throw new \Exception(
-                "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd does not contain : " . $string->getRaw()
+                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd does not contain : " . $string->getRaw()
             );
         }
     }
@@ -101,9 +98,9 @@ class HelmetContext extends BehatContext
      */
     public function itShouldPassWithExactly(PyStringNode $string)
     {
-        if ($string->getRaw() !== $this->plugin->getOutput()) {
+        if ($string->getRaw() !== $this->getPlugin()->getOutput()) {
             throw new \Exception(
-                "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd is not : " . $string->getRaw()
+                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd is not : " . $string->getRaw()
             );
         }
     }
@@ -115,7 +112,7 @@ class HelmetContext extends BehatContext
     {
         if ($this->matchRegex($string)) {
             throw new \Exception(
-                "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd contains : " . $string->getRaw()
+                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd contains : " . $string->getRaw()
             );
         }
     }
@@ -125,9 +122,9 @@ class HelmetContext extends BehatContext
      */
     public function theOutputShouldContain($arg1)
     {
-        if (strpos($this->plugin->getOutput(), $arg1) === false) {
+        if (strpos($this->getPlugin()->getOutput(), $arg1) === false) {
             throw new \Exception(
-                "Actual output is:\n" . $this->plugin->getOutput() . "\nAnd does not contain : " . $arg1
+                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd does not contain : " . $arg1
             );
         }
     }
@@ -135,6 +132,6 @@ class HelmetContext extends BehatContext
     private function matchRegex(PyStringNode $string)
     {
         $pattern = '@' . trim($string->getRaw(), '/') . '@';
-        return preg_match($pattern, $this->plugin->getOutput());
+        return preg_match($pattern, $this->getPlugin()->getOutput());
     }
 }
