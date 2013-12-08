@@ -88,7 +88,7 @@ class HelmetContext extends BehatContext
     {
         if (!$this->matchRegex($string)) {
             throw new \Exception(
-                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd does not contain : " . $string->getRaw()
+                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd doesn't contain : " . $string->getRaw()
             );
         }
     }
@@ -100,7 +100,7 @@ class HelmetContext extends BehatContext
     {
         if ($string->getRaw() !== $this->getPlugin()->getOutput()) {
             throw new \Exception(
-                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd is not : " . $string->getRaw()
+                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd isn't : " . $string->getRaw()
             );
         }
     }
@@ -124,7 +124,7 @@ class HelmetContext extends BehatContext
     {
         if (strpos($this->getPlugin()->getOutput(), $arg1) === false) {
             throw new \Exception(
-                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd does not contain : " . $arg1
+                "Actual output is:\n" . $this->getPlugin()->getOutput() . "\nAnd doesn't contain : " . $arg1
             );
         }
     }
