@@ -3,11 +3,11 @@ helmet
 
 [![Build Status](https://api.travis-ci.org/kpacha/helmet.png?branch=master)](https://travis-ci.org/kpacha/helmet) [![Coverage Status](https://coveralls.io/repos/kpacha/helmet/badge.png?branch=master)](https://coveralls.io/r/kpacha/helmet?branch=master)
 
-Behaviour-driven security test framework based on Behat and inspired by [Gauntlt](http://gauntlt.org/)
+Behaviour-driven security test framework based on [Behat](http://behat.org/) and inspired by [Gauntlt](http://gauntlt.org/)
 
 ##What does it do?
 
-Helmet is a simple framework for your security tests. With Helmet you can express your attacks as a Gherkin feature.
+Helmet is a simple framework for your security tests. With Helmet you can express your attacks as a [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin) feature.
 
 ##Installation
 
